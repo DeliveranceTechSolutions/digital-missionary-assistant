@@ -1,0 +1,49 @@
+# Virtual environment
+*venv*
+venv/*
+*env*
+
+# Compiled Python files
+*.pyc
+__pycache__/
+*.pytest_cache*
+*.pytest*
+
+# Obscure File exts
+*.cpp
+
+# Environment variables
+.env
+
+# Local development configuration
+instance/
+
+# IDE-specific files
+.vscode/
+.idea/
+
+# Dependency directories
+lib/
+lib64/
+bin/
+build/
+develop-eggs/
+downloads/
+eggs/
+parts/
+var/
+*.egg-info/
+.installed.cfg
+
+# Distribution
+dist/
+build/
+*.egg-info/
+
+# Local runtime configuration
+*.config
+
+# OS-specific files
+.DS_Store
+Thumbs.db
+

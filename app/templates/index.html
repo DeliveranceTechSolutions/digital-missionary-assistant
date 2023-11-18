@@ -1,0 +1,10 @@
+<!-- templates/index.html -->
+{% extends 'base.html' %}
+
+{% block title %}Home{% endblock %}
+
+{% block content %}
+    <h1>Welcome to our Home Page</h1>
+    <p>This is the home page content.</p>
+    <a href="{{ url_for('main.about') }}">Learn more about us</a>
+{% endblock %}
