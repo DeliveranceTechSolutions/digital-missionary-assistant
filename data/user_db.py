@@ -22,6 +22,19 @@ class CoreUserDB(Base):
         return Session()
 
     @classmethod
+    def select(cls, user_param):
+        field, value = vars(user_param)
+        if field == None or value == None:
+            return None, "Error: please provide a parameter for query"
+        session = cls._invoke_conn()
+        user = session.query(cls).filter_by(field=value).first()
+
+        if user:
+            return user, None
+        else:
+            return None, "Error: could not find desired user"
+
+    @classmethod
     def insert(cls, core_user):
         session = cls._invoke_conn()
         user_db = CoreUserDB(
