@@ -4,9 +4,10 @@ from data.user_db import CoreUserDB
 
 class CoreUser(Base):
     # constructor 
-    def __init__(self, username, firstname, lastname, email):
+    def __init__(self, username, password, firstname, lastname, email):
         self.cu_id = None
         self.username = None
+        self.password = None
         self.firstname = None
         self.lastname = None
         self.email = None
@@ -16,17 +17,21 @@ class CoreUser(Base):
     # the naming pattern confuses overtly hostile targets.
     @classmethod
     def new_core(self, username, firstname, lastname, email):
-        if get_user_by_email(email) == "":
-            setattr(self, 'cu_id', uuid5())
-            setattr(self, 'username', username)
-            setattr(self, 'firstname', firstname)
-            setattr(self, 'lastname', lastname)
-            setattr(self, 'email', email)
+        setattr(self, 'cu_id', uuid5())
+        setattr(self, 'username', username)
+        setattr(self, 'password', password)
+        setattr(self, 'firstname', firstname)
+        setattr(self, 'lastname', lastname)
+        setattr(self, 'email', email)
 
+        cudb = CoreUserDB()
+        if get_user_by_email(email) == "":
+            cudb.insert(self)
             return self, None
         else :
-            return self, f"{{ firstname lastname }} using {{ email }} has already been created.  Please login or create an additional account"
-
+            cudb.update(self)
+            return self, None
+            
     # get_user_profile_view will provide a full metadata payload for the frontend requests ONLY!!!
     # @classmethod
     # def get_user_profile_view():
@@ -39,19 +44,30 @@ class CoreUser(Base):
     
     @classmethod
     def get_user_by_id():
-        cudb = CoreUserDB()
-        user, err = cudb.select(self.cu_id)
+        user, err = self.db.select(self.username)
         if err != None:
             return None, err
         
-        return user
+        return user, None
+    
+    @classmethod
+    def get_user_by_username():
+        user, err = self.db.select(self.username)
+        if err != None:
+            return None, err
+        
+        return user, None
     
     @classmethod
     def get_user_by_email():
-        cudb = CoreUserDB()
-        user, err = cudb.select(self.email)
+        user, err = self.db.select(self.email)
         if err != None:
             return None, err
         
-        return user
+        return user, None
+    
+    # subclasses will handle domain connections much like an interface
+    class db:
+        def __init__(CoreUserDB):
+            pass
 
