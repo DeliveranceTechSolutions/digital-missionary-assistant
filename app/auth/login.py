@@ -1,12 +1,14 @@
-from auth import Authentication as lock
-from user import get_user_by_username
+from app.auth.auth import Authentication as lock
+from user import CoreUser
 
 def login(username, password):
-    user = get_user_by_username(username)
+    cu = CoreUser()
+    
+    user = cu.get_user_by_username(username)
     unlock = lock.verify_password(user, password)
     if unlock:
-        user.loggedin = unlock.loggedin
-        user.role = unlock.role
+        for field, value in vars(user):
+            setattr(cu, field, value)
 
         return "User is logged in"
     else:

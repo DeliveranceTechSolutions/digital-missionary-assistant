@@ -1,5 +1,6 @@
 from enum import Enum
-from data.user import CoreUser
+from app.auth.user import CoreUser
+
 
 class Authentication:
     # initialization of auth obj

@@ -24,7 +24,7 @@ class CoreUser(Base):
         setattr(self, 'lastname', lastname)
         setattr(self, 'email', email)
 
-        cudb = CoreUserDB()
+        cudb = self.db()
         if get_user_by_email(email) == "":
             cudb.insert(self)
             return self, None
