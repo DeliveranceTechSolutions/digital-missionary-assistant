@@ -10,4 +10,7 @@ def index():
 def about():
     return render_template('about.html', title='About Us')
 
+@main_bp.route('/login')
+def auth():
+    return render_template('login.html', title='Login')
 # Add more routes as needed
