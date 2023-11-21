@@ -1,6 +1,8 @@
-from flask import render_template, request, jsonify, Blueprint
+from flask import render_template, request, jsonify, Blueprint, current_app
 from app.auth.login import login as key
+import logging
 
+################ VIEWS BLUEPRINT ################
 main_bp = Blueprint('main', __name__)
 api_bp = Blueprint('api', __name__)
 
@@ -17,17 +19,21 @@ def auth():
     return render_template('login.html', title='Login')
 # Add more routes as needed
 
-# @api_bp.route('/api/login', methods=['POST'])
-# def login():
-#     data = request.get_json()
+############## API BLUEPRINT ################
+@api_bp.route('/login', methods=['POST'])
+def login():
+    data = request.get_json()
 
-#     if data is not None:
-#         res = key(data.get('usrn'), data.get('pdrd'))
+    if data is not None:
+        # Fetch the login key
+        res = key(data[0], data[1])
+
+        # Process the JSON data
+        result = {'message': f"{res}"}
+        return jsonify(result), 200
+
+    else:
+        error_message = {'error': 'Invalid JSON data'}
+        return jsonify(error_message), 400
+
     
-#     # Process the JSON data
-#         result = {'message': f"{res}"}
-#         return jsonify(result), 200
-
-#     else:
-#         error_message = {'error': 'Invalid JSON data'}
-#         return jsonify(error_message), 400

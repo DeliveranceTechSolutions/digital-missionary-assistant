@@ -38,7 +38,10 @@ class CoreUserDB():
 
     @classmethod
     def select(cls, user_param):
-        field, value = vars(user_param)
+        print(user_param.items())
+        field, value = zip(*user_param.items())
+
+        
         if field == None or value == None:
             return None, "Error: please provide a parameter for query"
         session, writer = cls._invoke()

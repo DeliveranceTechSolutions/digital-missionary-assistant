@@ -1,10 +1,10 @@
 from app.auth.auth import Authentication as lock
-from user import CoreUser
+from app.auth.user import CoreUser
 
 def login(username, password):
-    cu = CoreUser()
+    cu = CoreUser(username, password, None, None, None)
     
-    user = cu.get_user_by_username(username)
+    user = cu.get_user_by_username()
     unlock = lock.verify_password(user, password)
     if unlock:
         for field, value in vars(user):

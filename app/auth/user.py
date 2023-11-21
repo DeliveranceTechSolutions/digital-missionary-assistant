@@ -2,8 +2,15 @@ from uuid import uuid5
 from data.user_db import CoreUserDB
 
 
-class CoreUser(Base):
-    # constructor 
+class CoreUser():
+    cu_id = None
+    username = None
+    password = None
+    firstname = None
+    lastname = None
+    email = None
+
+    # # constructor 
     def __init__(self, username, password, firstname, lastname, email):
         self.cu_id = None
         self.username = None
@@ -43,31 +50,30 @@ class CoreUser(Base):
     #     return user
     
     @classmethod
-    def get_user_by_id():
-        user, err = self.db.select(self.username)
+    def get_user_by_id(self):
+        user, err = self.db().select(self.cu_id)
         if err != None:
             return None, err
         
         return user, None
     
     @classmethod
-    def get_user_by_username():
-        user, err = self.db.select(self.username)
+    def get_user_by_username(self):
+        
+        user, err = self.db().select(dict(username=self.username))
         if err != None:
             return None, err
         
         return user, None
     
     @classmethod
-    def get_user_by_email():
-        user, err = self.db.select(self.email)
+    def get_user_by_email(self):
+        user, err = self.db().select(self.email)
         if err != None:
             return None, err
         
         return user, None
-    
-    # subclasses will handle domain connections much like an interface
-    class db:
-        def __init__(CoreUserDB):
-            pass
+
+    def db():
+        return CoreUserDB()
 

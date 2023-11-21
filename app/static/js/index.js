@@ -2,16 +2,16 @@ document.addEventListener("DOMContentLoaded", function() {
     document.getElementById("login-form").addEventListener("submit", (event) => {
         event.preventDefault();
 
-        let usr = document.getElementById("login-username");
-        let pwd = document.getElementById("login-password");
+        let usr = document.getElementById("login-username").value;
+        let pwd = document.getElementById("login-password").value;
 
-        const dest = "http://localhost:8000/login"
+        const dest = "http://localhost:8000/api/login"
         const data = {
             usrn: usr,
-            pdrd: pwd
+            pdrd: pwd,
         }
-
-        handleOnSubmit(dest, data)
+        console.log(JSON.stringify(data))
+        handleOnSubmit(dest, JSON.stringify(data))
         .then((response) => {
             console.log(response);
         })
