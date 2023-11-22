@@ -59,13 +59,15 @@ class CoreUser():
     
     @classmethod
     def get_user_by_username(self):
-        
-        user, err = self.db().select(dict(username=self.username))
+        db = self.db()
+        session, writer = db._invoke()
+        print(writer)
+        user, err = writer.select(session, dict(username=self.username))
         if err != None:
             return None, err
-        
-        return user, None
-    
+
+        return user.username, None
+
     @classmethod
     def get_user_by_email(self):
         user, err = self.db().select(self.email)

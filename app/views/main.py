@@ -23,10 +23,10 @@ def auth():
 @api_bp.route('/login', methods=['POST'])
 def login():
     data = request.get_json()
-
+    print(data)
     if data is not None:
         # Fetch the login key
-        res = key(data[0], data[1])
+        res = key(data['usrn'], data['pdrd'])
 
         # Process the JSON data
         result = {'message': f"{res}"}

@@ -1,4 +1,217 @@
-/* static/css/style.css */
-body {
-    background-color: #f0f0f0;
-}
+/* Color Scheme */
+:root {
+    --primary-color: #3498db; /* Dodger Blue */
+    --secondary-color: #2ecc71; /* Emerald Green */
+    --tertiary-color: #e74c3c; /* Alizarin Red */
+    --background-color: #f4f4f4; /* Light Gray */
+    --text-color: #333;
+  }
+  
+  /* Global Reset */
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+  
+  /* Body Styles */
+  body {
+    font-family: 'Roboto', sans-serif;
+    font-size: 18px;
+    line-height: 1.6;
+    background-color: var(--background-color);
+    color: var(--text-color);
+  }
+  
+  /* Header Styles */
+  header {
+    background-color: var(--primary-color);
+    color: #fff;
+    padding: 20px;
+    text-align: center;
+    transition: background-color 0.3s ease;
+  }
+  
+  header:hover {
+    background-color: #2980b9; /* Slightly darker on hover */
+  }
+  
+  /* Navigation Styles */
+  nav {
+    display: flex;
+    justify-content: space-around;
+    background-color: var(--secondary-color);
+    color: #fff;
+    padding: 15px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    transition: background-color 0.3s ease;
+  }
+  
+  nav:hover {
+    background-color: #27ae60; /* Slightly darker on hover */
+  }
+  
+  nav a {
+    position: relative;
+    color: #fff;
+    text-decoration: none;
+    transition: color 0.3s ease;
+  }
+  
+  nav a::after {
+    content: '';
+    position: absolute;
+    width: 100%;
+    height: 2px;
+    background-color: #fff;
+    bottom: 0;
+    left: 0;
+    transform: scaleX(0);
+    transform-origin: bottom right;
+    transition: transform 0.3s ease;
+  }
+  
+  nav a:hover {
+    color: var(--primary-color);
+  }
+  
+  nav a:hover::after {
+    transform: scaleX(1);
+    transform-origin: bottom left;
+  }
+  
+  /* Section Styles */
+  section {
+    margin: 20px;
+  }
+  
+  /* Article Styles */
+  article {
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 20px;
+    margin-bottom: 30px;
+    background-color: #fff;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    position: relative;
+    transition: box-shadow 0.3s ease;
+  }
+  
+  article:hover {
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.2); /* Slightly larger shadow on hover */
+  }
+  
+  article::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(to bottom, #fff, rgba(255, 255, 255, 0));
+    pointer-events: none;
+  }
+  
+  /* Aside Styles */
+  aside {
+    float: right;
+    width: 30%;
+    padding: 20px;
+    background-color: #f4f4f4;
+    box-shadow: -5px 0 10px rgba(0, 0, 0, 0.1);
+  }
+  
+  /* Footer Styles */
+  footer {
+    text-align: center;
+    background-color: var(--primary-color);
+    color: #fff;
+    padding: 20px;
+  }
+  
+  /* Anchor Styles */
+  a {
+    color: var(--primary-color);
+    text-decoration: none;
+    transition: color 0.3s ease;
+  }
+  
+  a:hover {
+    color: var(--tertiary-color);
+  }
+  
+  /* Button Styles */
+  button {
+    background-color: var(--primary-color);
+    color: #fff;
+    padding: 12px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  button:hover {
+    background-color: var(--tertiary-color);
+  }
+  
+  /* Input Styles */
+  input, textarea {
+    width: 100%;
+    padding: 12px;
+    margin-bottom: 15px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    background-color: #f8f8f8;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+  }
+  
+  input:focus, textarea:focus {
+    outline: none;
+    border-color: var(--primary-color);
+    box-shadow: 0 0 10px rgba(52, 152, 219, 0.5);
+  }
+  
+  /* List Styles */
+  ul, ol {
+    margin-left: 20px;
+  }
+  
+  /* Table Styles */
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 30px;
+  }
+  
+  th, td {
+    border: 1px solid #ddd;
+    padding: 12px;
+    text-align: left;
+  }
+  
+  /* Form Styles */
+  form {
+    margin: 20px;
+  }
+  
+  /* Header Pseudo-element */
+  h1::before {
+    content: "🚀 ";
+  }
+  
+  /* Article Pseudo-element */
+  article::after {
+    content: " - Keep reading...";
+    color: var(--primary-color);
+  }
+  
+  /* Responsive Design */
+  @media (max-width: 768px) {
+    aside {
+      width: 100%;
+      float: none;
+      margin-top: 20px;
+    }
+  }
+  

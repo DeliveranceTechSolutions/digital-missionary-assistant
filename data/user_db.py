@@ -1,6 +1,10 @@
 from sqlalchemy import Column, Integer, String, Sequence, create_engine
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import sessionmaker
+from app import RequestFormatter as log
+from flask import current_app
+import app
+
 
 
 Base = declarative_base()
@@ -27,6 +31,23 @@ class CoreUserDBWriter(Base):
 
         for attr, value in attributes.items():
             setattr(cls, attr, value)
+    
+    @classmethod
+    def select(cls, session, user_param):
+        key, val = zip(*user_param.items())
+        field = str(key[0])
+        value = str(val[0])
+
+        if field == None and value == None:
+            return None, "Error: please provide a parameter for query"
+
+        user = session.query(getattr(cls, field)).filter(getattr(cls, field) == value).first()
+
+        if user:
+            return user, None
+        else:
+            return None, "Error: could not find desired user"
+
 
 class CoreUserDB():
     @classmethod
@@ -35,22 +56,6 @@ class CoreUserDB():
         Session = sessionmaker(bind=engine, expire_on_commit=True)
         
         return Session(), CoreUserDBWriter()
-
-    @classmethod
-    def select(cls, user_param):
-        print(user_param.items())
-        field, value = zip(*user_param.items())
-
-        
-        if field == None or value == None:
-            return None, "Error: please provide a parameter for query"
-        session, writer = cls._invoke()
-        user = session.query(cls).filter_by(field=value).first()
-
-        if user:
-            return user, None
-        else:
-            return None, "Error: could not find desired user"
 
     @classmethod
     def insert(cls, core_user):
@@ -63,7 +68,7 @@ class CoreUserDB():
             email=core_user.email,
             role=core_user.role
         )
-        session.add(writer)
+        
         session.commit()
         session.close()
 

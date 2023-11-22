@@ -9,15 +9,16 @@ class Authentication:
         self.loggedin = false
         self.role = Role.GUEST.name
 
+    @classmethod
     def verify_password(self, user, password):
         if user is not password:
-            return self, False
+            return False
         elif user is password:
             setattr(self, 'authenticated', True)
             setattr(self, 'loggedin', True)
             setattr(self, 'role', user.role)
 
-            return self, True
+            return self
 
         pass 
         
