@@ -1,15 +1,11 @@
 from sqlalchemy import Column, Integer, String, Sequence, create_engine
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import sessionmaker
-from app import RequestFormatter as log
+from ..app import RequestFormatter as log
 from flask import current_app
-import app
-
 
 
 Base = declarative_base()
-
-
 
 class CoreUserDBWriter(Base):
     __tablename__ = 'users'

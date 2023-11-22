@@ -1,17 +1,22 @@
 from uuid import uuid5
 from data.user_db import CoreUserDB
+from data.tools import Reader, Writer
 
 
-class CoreUser():
-    cu_id = None
-    username = None
-    password = None
-    firstname = None
-    lastname = None
-    email = None
+class CoreUser(Reader, Writer):
+    self.cu_id = None
+    self.username = None
+    self.password = None
+    self.firstname = None
+    self.lastname = None
+    self.email = None
 
-    # # constructor 
-    def __init__(self, username, password, firstname, lastname, email):
+    def __init__(self, engine):
+        Reader.__init__(self, engine)
+        Writer.__init__(self, engine)
+
+        # Create a dynamic user table
+        self.user_table = self.create_dynamic_table('user_table', name='VARCHAR(255)', age='INTEGER')
         self.cu_id = None
         self.username = None
         self.password = None
@@ -38,24 +43,10 @@ class CoreUser():
         else :
             cudb.update(self)
             return self, None
-            
-    # get_user_profile_view will provide a full metadata payload for the frontend requests ONLY!!!
-    # @classmethod
-    # def get_user_profile_view():
-    #     cudb = CoreUserDB()
-    #     user, err = cudb.select(self.cu_id)
-    #     if err != None:
-    #         return None, err
-        
-    #     return user
     
     @classmethod
     def get_user_by_id(self):
-        user, err = self.db().select(self.cu_id)
-        if err != None:
-            return None, err
-        
-        return user, None
+        self.query_index(self.user_table)
     
     @classmethod
     def get_user_by_username(self, usrn):
