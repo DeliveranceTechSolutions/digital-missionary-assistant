@@ -9,6 +9,8 @@ import app
 
 Base = declarative_base()
 
+
+
 class CoreUserDBWriter(Base):
     __tablename__ = 'users'
     cudb_id = Column(Integer, Sequence('user_id_seq'), primary_key=True)
@@ -37,7 +39,7 @@ class CoreUserDBWriter(Base):
         key, val = zip(*user_param.items())
         field = str(key[0])
         value = str(val[0])
-
+        print(field, value)
         if field == None and value == None:
             return None, "Error: please provide a parameter for query"
 
@@ -52,7 +54,9 @@ class CoreUserDBWriter(Base):
 class CoreUserDB():
     @classmethod
     def _invoke(cls):
-        engine = create_engine('sqlite:///example.db')
+        engine = create_engine('sqlite:///:memory:')
+        Base.metadata.create_all(engine)
+        
         Session = sessionmaker(bind=engine, expire_on_commit=True)
         
         return Session(), CoreUserDBWriter()
