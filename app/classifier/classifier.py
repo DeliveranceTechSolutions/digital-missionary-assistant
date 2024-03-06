@@ -27,7 +27,7 @@ class SVMModel:
         self.vect = ""
         self.model = ""
 
-    def load(label):
+    def load(self, label):
         modelsFolderTemplate = "".join([svmCreate.SVM_MODELS_FOLDER, label])
         self.encode = pickle.load(open(
             "".join([modelsFolderTemplate, 'encode.pkl']),
