@@ -1,4 +1,3 @@
 flask
-torch
-sk_learn
 gunicorn
+sqlalchemy
