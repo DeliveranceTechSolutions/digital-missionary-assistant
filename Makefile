@@ -12,3 +12,5 @@ debug:
 
 bare-run:
 	gunicorn -b 0.0.0.0:8000 run:app
+
+.PHONY: 
