@@ -11,7 +11,7 @@ class Classifier:
       self.pre      = processor_driver
       self.eval     = evaluator_driver
       self.model    = set_model(model_driver)
-      self.test = "testing if main has been protected"
+      self.test     = "main should be protected now"
 
     
     def set_model(model_driver):
