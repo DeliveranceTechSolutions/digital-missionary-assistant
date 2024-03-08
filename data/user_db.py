@@ -3,9 +3,8 @@ from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import sessionmaker
 from app import RequestFormatter as log
 from flask import current_app
-import app
 
-
+import app.auth.user as new 
 
 Base = declarative_base()
 
@@ -40,9 +39,17 @@ class CoreUserDBWriter(Base):
 
         if field == None and value == None:
             return None, "Error: please provide a parameter for query"
+        
 
-        user = session.query(getattr(cls, field)).filter(getattr(cls, field) == value).first()
-
+        row = session.query(getattr(cls, field)).filter(getattr(cls, field) == value).first()
+        user = new.CoreUser(
+            username=row.username,
+            firstname=row.firstname,
+            lastname=row.lastname,
+            email=row.email,
+            password=None,
+        )
+         
         if user:
             return user, None
         else:
@@ -75,6 +82,7 @@ class CoreUserDB():
     @classmethod
     def update(cls, core_user_query):
         session, writer = cls._invoke()
+        
         user = session.query(writer).filter_by(email=core_user_query.email).first()
 
         if user:
